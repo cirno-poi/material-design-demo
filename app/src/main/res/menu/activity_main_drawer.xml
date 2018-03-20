@@ -34,5 +34,25 @@
                 android:title="Send" />
         </menu>
     </item>
+    <item android:title="Test">
+        <menu>
+            <item
+                android:id="@+id/change_theme"
+                android:icon="@drawable/ic_menu_share"
+                android:title="change theme" />
+            <item
+                android:id="@+id/test2"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+            <item
+                android:id="@+id/test3"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+            <item
+                android:id="@+id/test4"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
 
 </menu>

@@ -3,25 +3,21 @@ package com.example.dell.mddemo;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
-import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-
-import com.example.dell.mddemo.utils.ColorUtil;
 
 /**
  * Created by dell on 2018/3/19.
  */
 
-public class MainAnimHelper {
+public class RevealAnimHelper {
 
     public static final long DURATION_TIME = 600;//动画持续时间
 
@@ -42,10 +38,10 @@ public class MainAnimHelper {
     private float startRadius = 0;
     private float endRadius = 0;
 
-    public MainAnimHelper(Activity activity) {
+    public RevealAnimHelper(Activity activity) {
         this.activity = activity;
         if (activity != null) {
-            toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+            toolbar = (Toolbar) activity.findViewById(R.id.theme_toolbar);
             background_rl = activity.findViewById(R.id.background_rl);
             background_rl.setBackgroundColor(activity.getResources().getColor(R.color.white));
 
@@ -107,15 +103,18 @@ public class MainAnimHelper {
         return null;
     }
 
-    public void revealAnimTest(int startX, int startY, int color) {
+    public void revealAnimTest(int startX, int startY, int color, long durationTime) {
         Animator animator = revealAnim(startX, startY, getStartRadius(), getEndRadius(),
                 background_rl, background_fl, color);
         Animator animator1 = revealAnim(startX, startY + toolbar_bg.getHeight(), getStartRadius(),
                 getEndRadius(), toolbar_bg, app_bar_layout, color);
 
         if (animator != null && animator1 != null) {
-            animator.setDuration(DURATION_TIME);
-            animator1.setDuration(DURATION_TIME);
+            if (durationTime <= 0) {
+                durationTime = DURATION_TIME;
+            }
+            animator.setDuration(durationTime);
+            animator1.setDuration(durationTime);
             AnimatorSet animatorSet = new AnimatorSet();
             animatorSet.playTogether(animator, animator1);
             animatorSet.start();
