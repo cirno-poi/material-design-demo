@@ -8,9 +8,9 @@ import android.util.AttributeSet;
 import android.view.WindowInsets;
 
 /**
- * 重新CoordinatorLayout的onApplyWindowInsets()方法在fitSystemWindows=“true”时不为子View添加padding
+ * Description：重新CoordinatorLayout的onApplyWindowInsets()方法在fitSystemWindows=“true”时不为子View添加padding
  *
- * Created by dell on 2018/3/21.
+ * Created by Flower.G on 2018/3/21.
  */
 
 public class SoftInputCoordinatorLayout extends CoordinatorLayout {

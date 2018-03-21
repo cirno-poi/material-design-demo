@@ -25,6 +25,12 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * Description：write something
+ *
+ * Created by Flower.G on 2018/3/19.
+ */
+
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected Unbinder mUnbinder;

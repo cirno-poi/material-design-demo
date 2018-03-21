@@ -17,8 +17,11 @@ import android.widget.RelativeLayout;
 import butterknife.BindView;
 
 /**
- * Created by dell on 2018/3/19.
+ * Description：write something
+ *
+ * Created by Flower.G on 2018/3/19.
  */
+
 
 class RevealAnimHelper {
 

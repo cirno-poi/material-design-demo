@@ -3,7 +3,9 @@ package com.example.dell.mddemo.utils;
 import java.util.Random;
 
 /**
- * Created by dell on 2018/3/16.
+ * Description：write something
+ *
+ * Created by Flower.G on 2018/3/16.
  */
 
 public class ColorUtil {

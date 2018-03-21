@@ -17,9 +17,9 @@ import android.widget.EdgeEffect;
 import java.lang.reflect.Field;
 
 /**
- * Viewc操作工具类
- * <p>
- * Created by dell on 2018/3/21.
+ * Description：Viewc操作工具类
+ *
+ * Created by Flower.G on 2018/3/21.
  */
 
 public class MyViewUtils {

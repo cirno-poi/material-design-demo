@@ -16,7 +16,9 @@ import com.example.dell.mddemo.R;
 import java.lang.reflect.Field;
 
 /**
- * Created by dell on 2018/3/19.
+ * Description：write something
+ *
+ * Created by Flower.G on 2018/3/19.
  */
 
 public class CommonUtils {
@@ -46,7 +48,4 @@ public class CommonUtils {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
     }
-
-
-
 }

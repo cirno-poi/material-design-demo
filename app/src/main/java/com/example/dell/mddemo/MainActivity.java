@@ -27,6 +27,12 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 
+/**
+ * Description：write something
+ *
+ * Created by Flower.G on 2018/3/19.
+ */
+
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
