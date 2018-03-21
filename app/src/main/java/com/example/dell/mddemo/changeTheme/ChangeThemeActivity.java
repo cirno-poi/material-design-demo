@@ -1,14 +1,11 @@
-package com.example.dell.mddemo;
+package com.example.dell.mddemo.changeTheme;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
-import android.support.v7.widget.ViewUtils;
 import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,8 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
+import com.example.dell.mddemo.ColorEvent;
+import com.example.dell.mddemo.R;
 import com.example.dell.mddemo.base.BaseActivity;
 import com.example.dell.mddemo.utils.ColorUtil;
 import com.example.dell.mddemo.utils.CommonUtils;
@@ -35,25 +33,8 @@ import butterknife.BindView;
 
 public class ChangeThemeActivity extends BaseActivity {
 
-//    private Button btn_test;
-    //    private RelativeLayout background_rl;
-//    private FrameLayout background_fl;
-
-//    private FrameLayout toolbar_bg;//toolbar背景
-
-//    private Toolbar theme_toolbar;
-//    private AppBarLayout app_bar_layout;
-
-    @BindView(R.id.background_rl)
-    RelativeLayout background_rl;
-    @BindView(R.id.background_fl)
-    FrameLayout background_fl;
     @BindView(R.id.btn_test)
     Button btn_test;
-    @BindView(R.id.app_bar_layout)
-    AppBarLayout app_bar_layout;
-    @BindView(R.id.toolbar_bg)
-    FrameLayout toolbar_bg;
     @BindView(R.id.theme_toolbar)
     Toolbar theme_toolbar;
     @BindView(R.id.edt_duration_time)
@@ -158,4 +139,3 @@ public class ChangeThemeActivity extends BaseActivity {
     }
 
 }
-

@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.WindowInsets;
+import android.widget.RelativeLayout;
 
 /**
  * Description：重新CoordinatorLayout的onApplyWindowInsets()方法在fitSystemWindows=“true”时不为子View添加padding

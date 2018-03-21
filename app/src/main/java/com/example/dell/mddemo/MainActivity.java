@@ -3,8 +3,12 @@ package com.example.dell.mddemo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,8 +21,12 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import com.example.dell.mddemo.base.BaseActivity;
+import com.example.dell.mddemo.changeTheme.ChangeThemeActivity;
+import com.example.dell.mddemo.changeTheme.ChangeThemeFragment;
+import com.example.dell.mddemo.home.HomeFragment;
 import com.example.dell.mddemo.utils.MyViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -74,8 +82,7 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
         MyViewUtils.removeNavigationViewScrollbar(navigationView);
 
-//        setFullScreen();
-
+        replaceFragment(new HomeFragment());
         EventBus.getDefault().register(this);
     }
 
@@ -135,8 +142,9 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            ChangeThemeActivity.actionSatrt(this);
-            return true;
+//            ChangeThemeActivity.actionSatrt(this);
+//            return true;
+            replaceFragment(new ChangeThemeFragment());
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -160,22 +168,10 @@ public class MainActivity extends BaseActivity
         setThemeColor(colorEvent.getColor());
     }
 
-
-    private void setFullScreen() {
-        Window window = getWindow();
-//设置透明状态栏,这样才能让 ContentView 向上
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-
-//需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//设置状态栏颜色
-        window.setStatusBarColor(Color.GREEN);
-
-        ViewGroup mContentView = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
-        View mChildView = mContentView.getChildAt(0);
-        if (mChildView != null) {
-            //注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View . 使其不为系统 View 预留空间.
-            ViewCompat.setFitsSystemWindows(mChildView, false);
-        }
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_fragment_layout,fragment);
+        transaction.commit();
     }
 }
