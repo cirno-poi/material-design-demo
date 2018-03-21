@@ -19,7 +19,7 @@
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Theme" />
     </group>
 
     <item android:title="Communicate">
@@ -39,7 +39,7 @@
             <item
                 android:id="@+id/change_theme"
                 android:icon="@drawable/ic_menu_share"
-                android:title="change theme" />
+                android:title="Test" />
             <item
                 android:id="@+id/test2"
                 android:icon="@drawable/ic_menu_send"

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.ViewUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.example.dell.mddemo.base.BaseActivity;
 import com.example.dell.mddemo.utils.ColorUtil;
 import com.example.dell.mddemo.utils.CommonUtils;
+import com.example.dell.mddemo.utils.MyViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -77,7 +80,8 @@ public class ChangeThemeActivity extends BaseActivity {
                 finish();
             }
         });
-        CommonUtils.setToolbarHeight(this, theme_toolbar);
+        MyViewUtils.setToolbarHeight(this, theme_toolbar);
+//        CommonUtils.setToolbarHeight(this, theme_toolbar);
 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();

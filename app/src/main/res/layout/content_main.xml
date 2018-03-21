@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/theme_ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tianyi_blue"
+    android:background="@color/transparent"
     android:fitsSystemWindows="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.dell.mddemo.ChangeThemeActivity"
     tools:showIn="@layout/activity_change_theme">
 
     <FrameLayout
-        android:fitsSystemWindows="false"
         android:id="@+id/background_fl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
 
         <RelativeLayout
-            android:fitsSystemWindows="false"
             android:id="@+id/background_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/tianyi_blue">
+            android:background="@color/tianyi_blue"
+            android:fitsSystemWindows="false">
 
         </RelativeLayout>
     </FrameLayout>
 
     <ScrollView
-        android:fitsSystemWindows="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -76,4 +77,4 @@
         </RelativeLayout>
     </ScrollView>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

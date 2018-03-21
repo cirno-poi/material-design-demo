@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.os.Build;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,11 +14,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import butterknife.BindView;
+
 /**
  * Created by dell on 2018/3/19.
  */
 
-public class RevealAnimHelper {
+class RevealAnimHelper {
 
     public static final long DURATION_TIME = 600;//动画持续时间
 
@@ -33,12 +36,10 @@ public class RevealAnimHelper {
     private Toolbar toolbar;
     private AppBarLayout app_bar_layout;
 
-//    private long mDurationTime = 800;//动画持续时间
-
     private float startRadius = 0;
     private float endRadius = 0;
 
-    public RevealAnimHelper(Activity activity) {
+    RevealAnimHelper(Activity activity) {
         this.activity = activity;
         if (activity != null) {
             toolbar = (Toolbar) activity.findViewById(R.id.theme_toolbar);
@@ -51,10 +52,6 @@ public class RevealAnimHelper {
             app_bar_layout = activity.findViewById(R.id.app_bar_layout);
             toolbar_bg = activity.findViewById(R.id.toolbar_bg);
             btn_test = activity.findViewById(R.id.btn_test);
-
-            //开始与结束时的半径
-//            startRadius = (float) btn_test.getHeight() / 2;
-//            endRadius = (float) Math.hypot(background_rl.getWidth(), background_rl.getHeight());
         }
     }
 
@@ -103,7 +100,7 @@ public class RevealAnimHelper {
         return null;
     }
 
-    public void revealAnimTest(int startX, int startY, int color, long durationTime) {
+    void revealAnimTest(int startX, int startY, int color, long durationTime) {
         Animator animator = revealAnim(startX, startY, getStartRadius(), getEndRadius(),
                 background_rl, background_fl, color);
         Animator animator1 = revealAnim(startX, startY + toolbar_bg.getHeight(), getStartRadius(),

@@ -19,7 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.dell.mddemo.base.BaseActivity;
-import com.example.dell.mddemo.utils.CommonUtils;
+import com.example.dell.mddemo.utils.MyViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity
     DrawerLayout drawer_layout;
     @BindView(R.id.nav_view)
     NavigationView nav_view;
-    @BindView(R.id.theme_toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
 
     @Override
@@ -45,9 +45,9 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void setupView() {
-        toolbar = (Toolbar) findViewById(R.id.theme_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-//        CommonUtils.setToolbarHeight(this, toolbar);
+        MyViewUtils.setToolbarHeight(this, toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        MyViewUtils.removeNavigationViewScrollbar(navigationView);
 
 //        setFullScreen();
 
@@ -128,13 +129,13 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-
+            ChangeThemeActivity.actionSatrt(this);
+            return true;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.change_theme) {
-            ChangeThemeActivity.actionSatrt(this);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -152,6 +153,7 @@ public class MainActivity extends BaseActivity
     public void Event(ColorEvent colorEvent) {
         setThemeColor(colorEvent.getColor());
     }
+
 
     private void setFullScreen() {
         Window window = getWindow();
