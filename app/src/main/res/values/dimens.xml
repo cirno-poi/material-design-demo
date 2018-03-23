@@ -24,4 +24,6 @@
 
     <dimen name="control_bar">56dp</dimen>
     <dimen name="tools_bar">56dp</dimen>
+
+    <dimen name="motion_layout_margin">12dp</dimen>
 </resources>

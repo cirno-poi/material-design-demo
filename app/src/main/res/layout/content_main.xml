@@ -18,12 +18,12 @@
         android:fitsSystemWindows="false">
 
         <LinearLayout
-            android:orientation="vertical"
             android:id="@+id/background_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/tianyi_blue"
-            android:fitsSystemWindows="false">
+            android:fitsSystemWindows="false"
+            android:orientation="vertical">
 
         </LinearLayout>
     </FrameLayout>
@@ -57,24 +57,38 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/edt_duration_time"
-                android:layout_width="wrap_content"
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="108dp"
-                android:hint="2333333333"
-                android:inputType="number"
-                android:maxLength="5"
-                android:maxLines="1" />
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="108dp">
 
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="wrap_content"
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edt_duration_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="2333333333"
+                    android:inputType="number"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="328dp"
-                android:hint="2333333333" />
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="328dp">
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="2333333333" />
+            </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
     </ScrollView>
 

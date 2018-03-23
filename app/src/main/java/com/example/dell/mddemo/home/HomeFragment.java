@@ -1,6 +1,7 @@
 package com.example.dell.mddemo.home;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.dell.mddemo.R;
 import com.example.dell.mddemo.base.BaseFragment;
@@ -11,7 +12,7 @@ import com.example.dell.mddemo.base.BaseFragment;
  * Created by Flower.G on 2018/3/21.
  */
 
-public class HomeFragment extends BaseFragment{
+public class HomeFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.content_main2;
@@ -19,7 +20,7 @@ public class HomeFragment extends BaseFragment{
 
     @Override
     protected void setupView() {
-
+//        Log.d("233333", "------HomeFragment: " + getPageName());
     }
 
     @Override

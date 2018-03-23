@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -43,7 +44,7 @@ public class ChangeThemeFragment extends BaseFragment {
     @BindView(R.id.btn_test)
     Button btn_test;
     @BindView(R.id.edt_duration_time)
-    EditText edt_duration_time;
+    TextInputEditText edt_duration_time;
 
     private AppBarLayout main_app_bar_layout;
     private  FrameLayout toolbar_bg;
@@ -58,8 +59,8 @@ public class ChangeThemeFragment extends BaseFragment {
     @Override
     protected void setupView() {
 
-        main_app_bar_layout = getActivity().findViewById(R.id.main_app_bar_layout);
-        toolbar_bg = getActivity().findViewById(R.id.main_toolbar_bg);
+        main_app_bar_layout = (AppBarLayout)getActivity().findViewById(R.id.main_app_bar_layout);
+        toolbar_bg = (FrameLayout)getActivity().findViewById(R.id.main_toolbar_bg);
 
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +80,7 @@ public class ChangeThemeFragment extends BaseFragment {
                 revealAnimTest((int) v.getX() + v.getWidth() / 2,
                         (int) v.getY() + v.getHeight() / 2, color, mDurationTime);
                 btn_test.setBackgroundColor(color + 2000);
-//                EventBus.getDefault().post(new ColorEvent(color));
+                EventBus.getDefault().post(new ColorEvent(color));
             }
         });
 

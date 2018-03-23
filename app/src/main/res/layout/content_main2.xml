@@ -33,17 +33,23 @@
                 android:text="23333"
                 android:textSize="50sp" />
 
-            <EditText
-                android:id="@+id/editText"
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
-                android:layout_marginEnd="50dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="400dp"
-                android:hint="23333333"
-                android:maxLength="10"
-                android:maxLines="1" />
+                android:layout_marginTop="400dp">
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginEnd="50dp"
+                    android:hint="23333333"
+                    android:maxLength="10"
+                    android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
         </RelativeLayout>
     </ScrollView>
 

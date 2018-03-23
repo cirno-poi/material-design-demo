@@ -19,6 +19,7 @@
             android:layout_height="match_parent">
 
             <FrameLayout
+                android:background="@color/transparent"
                 android:id="@+id/main_toolbar_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
@@ -27,7 +28,6 @@
                 android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
         </FrameLayout>
 
@@ -41,10 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:fitsSystemWindows="true"
         app:srcCompat="@android:drawable/ic_dialog_email" />
-
 
 </com.example.dell.mddemo.ui.SoftInputCoordinatorLayout>

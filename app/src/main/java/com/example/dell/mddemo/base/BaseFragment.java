@@ -23,6 +23,14 @@ public abstract class BaseFragment extends Fragment {
     protected Unbinder mUnbinder;
     private String pageName = this.getClass().getSimpleName();
 
+    public String getPageName() {
+        return pageName;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
+    }
+
     public BaseFragment() {
     }
 

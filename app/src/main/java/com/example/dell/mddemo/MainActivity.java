@@ -1,5 +1,6 @@
 package com.example.dell.mddemo;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,28 +24,36 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.dell.mddemo.base.BaseActivity;
+import com.example.dell.mddemo.base.BaseFragment;
 import com.example.dell.mddemo.changeTheme.ChangeThemeActivity;
 import com.example.dell.mddemo.changeTheme.ChangeThemeFragment;
 import com.example.dell.mddemo.home.HomeFragment;
+import com.example.dell.mddemo.motion.Motion2Fragment;
+import com.example.dell.mddemo.motion.MotionFragment;
 import com.example.dell.mddemo.utils.MyViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Description：write something
- *
+ * <p>
  * Created by Flower.G on 2018/3/19.
  */
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
+    private static final String TAG = "233333";
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer_layout;
@@ -51,6 +61,13 @@ public class MainActivity extends BaseActivity
     NavigationView nav_view;
     @BindView(R.id.main_toolbar)
     Toolbar toolbar;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+
+    private long lastClickTime = 0;
+    FragmentManager fragmentManager = getSupportFragmentManager();
+
+    private BaseFragment mCurrentFragment;
 
     @Override
     protected int getLayoutId() {
@@ -63,14 +80,8 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(toolbar);
         MyViewUtils.setToolbarHeight(this, toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -81,15 +92,25 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         MyViewUtils.removeNavigationViewScrollbar(navigationView);
+        navigationView.getMenu().getItem(0).setChecked(true);
 
-        replaceFragment(new HomeFragment());
+        mCurrentFragment = new HomeFragment();
+        replaceFragment(mCurrentFragment);
+
+//        if (mCurrentFragment instanceof HomeFragment) {
+//            Log.d(TAG, "当前fragment是: HomeFragment");
+//        }
+//            if (fragmentList.get(0) instanceof HomeFragment) {
+//                Log.d("233333", "当前fragment为HomeFragment ");
+//            }
+
         EventBus.getDefault().register(this);
     }
 
     @Override
     protected void setupData(Bundle savedInstanceState) {
-
     }
+
 
     @Override
     protected void onDestroy() {
@@ -103,7 +124,13 @@ public class MainActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (System.currentTimeMillis() - lastClickTime > 2000) {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.double_click_exit),
+                        Toast.LENGTH_SHORT).show();
+                lastClickTime = System.currentTimeMillis();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -137,14 +164,22 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            mCurrentFragment = new HomeFragment();
+            replaceFragment(mCurrentFragment);
+            fab.setVisibility(View.VISIBLE);
         } else if (id == R.id.nav_gallery) {
-
+            mCurrentFragment = new MotionFragment();
+            replaceFragment(mCurrentFragment);
+            fab.setVisibility(View.GONE);
         } else if (id == R.id.nav_slideshow) {
-
+            mCurrentFragment = new Motion2Fragment();
+            replaceFragment(mCurrentFragment);
+            fab.setVisibility(View.GONE);
         } else if (id == R.id.nav_manage) {
 //            ChangeThemeActivity.actionSatrt(this);
 //            return true;
             replaceFragment(new ChangeThemeFragment());
+            fab.setVisibility(View.GONE);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -159,8 +194,8 @@ public class MainActivity extends BaseActivity
 
 
     private void setThemeColor(@ColorInt int color) {
-        toolbar.setBackgroundColor(color);
-//        setStatusBarColor(color);
+        fab.setBackgroundTintList(ColorStateList.valueOf(color));
+        //setStatusBarColor(color);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -168,10 +203,30 @@ public class MainActivity extends BaseActivity
         setThemeColor(colorEvent.getColor());
     }
 
-    private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
+    private void replaceFragment(BaseFragment fragment) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_fragment_layout,fragment);
+        transaction.replace(R.id.main_fragment_layout, fragment, fragment.getPageName());
         transaction.commit();
+    }
+
+    private void replaceFragmentToBackStack(Fragment fragment) {
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.main_fragment_layout, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab:
+                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+                break;
+            default:
+                break;
+        }
     }
 }
