@@ -2,6 +2,7 @@ package com.example.dell.mddemo.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -17,7 +18,7 @@ import java.lang.reflect.Field;
 
 /**
  * Description：write something
- *
+ * <p>
  * Created by Flower.G on 2018/3/19.
  */
 
@@ -47,5 +48,12 @@ public class CommonUtils {
     public static int dip2px(Context context, float dipValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
+    }
+
+    public static Point getDisplayInfo(Activity activity, float dipValue) {
+
+        Point point = new Point();
+        activity.getWindowManager().getDefaultDisplay().getRealSize(point);
+        return point;
     }
 }

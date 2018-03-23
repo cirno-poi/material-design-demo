@@ -4,20 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.view.View;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import com.example.dell.mddemo.ColorEvent;
 import com.example.dell.mddemo.R;
 import com.example.dell.mddemo.base.BaseActivity;
-import com.example.dell.mddemo.utils.ColorUtil;
+import com.example.dell.mddemo.utils.ColorUtils;
 import com.example.dell.mddemo.utils.CommonUtils;
 import com.example.dell.mddemo.utils.MyViewUtils;
 
@@ -91,7 +88,7 @@ public class ChangeThemeActivity extends BaseActivity {
                 if (CommonUtils.isFastDoubleClick(mDurationTime)) {
                     return;
                 }
-                int color = Color.parseColor(ColorUtil.random());
+                int color = Color.parseColor(ColorUtils.random());
                 revealAnimHelper.revealAnimTest((int) v.getX() + v.getWidth() / 2,
                         (int) v.getY() + v.getHeight() / 2, color, mDurationTime);
                 btn_test.setBackgroundColor(color + 2000);

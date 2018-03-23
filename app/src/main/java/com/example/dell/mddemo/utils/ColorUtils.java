@@ -8,7 +8,7 @@ import java.util.Random;
  * Created by Flower.G on 2018/3/16.
  */
 
-public class ColorUtil {
+public class ColorUtils {
 
     public static String random(){
         //红色

@@ -68,8 +68,8 @@ public class MotionFragment extends BaseFragment {
 //        fabX = motion_fab.getLeft();
 //        fabY = motion_fab.getTop();
 
-        fabX = motion_fab.getLeft() + motion_fab.getWidth() / 2;
-        fabY = motion_fab.getTop() + motion_fab.getHeight() / 2;
+//        fabX = motion_fab.getLeft() + motion_fab.getWidth() / 2;
+//        fabY = motion_fab.getTop() + motion_fab.getHeight() / 2;
 
         fabX = (int) (motion_fab.getLeft() + motion_fab.getWidth() / 2 - getResources().getDimension(R.dimen.motion_layout_margin));
         fabY = (int) (motion_fab.getTop() + motion_fab.getHeight() / 2 -  getResources().getDimension(R.dimen.motion_layout_margin));
