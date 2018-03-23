@@ -178,7 +178,7 @@ public class Motion2Fragment extends BaseFragment {
         if (animator != null && valueAnimator != null) {
             valueAnimator.setDuration(durationTime);
             animator.setDuration(durationTime);
-            animator.setInterpolator(new AccelerateDecelerateInterpolator());
+            animator.setInterpolator(new AccelerateInterpolator());
             valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
             AnimatorSet animatorSet = new AnimatorSet();
             animatorSet.playSequentially(animator, valueAnimator);
