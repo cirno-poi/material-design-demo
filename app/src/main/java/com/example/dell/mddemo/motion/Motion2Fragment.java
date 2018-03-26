@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import com.example.dell.mddemo.R;
 import com.example.dell.mddemo.base.BaseFragment;
 import com.example.dell.mddemo.utils.AnimUtils;
+import com.example.dell.mddemo.utils.CommonUtils;
 
 import butterknife.BindView;
 
@@ -28,7 +29,7 @@ import butterknife.BindView;
 
 public class Motion2Fragment extends BaseFragment {
 
-    private long durationTime = 150;
+    private long durationTime = 300;
 
     private int fabX = 0;
     private int fabY = 0;
@@ -56,6 +57,9 @@ public class Motion2Fragment extends BaseFragment {
         motion2_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (CommonUtils.isFastDoubleClick(durationTime)) {
+                    return;
+                }
 //                revelAnim();
                 openAnim(v);
             }
@@ -64,6 +68,9 @@ public class Motion2Fragment extends BaseFragment {
         motion2_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (CommonUtils.isFastDoubleClick(durationTime)) {
+                    return;
+                }
 //                hideAnim();
                 closeAnim();
             }
@@ -82,8 +89,8 @@ public class Motion2Fragment extends BaseFragment {
         openEndRadius = (float) Math.hypot(motion2_ll.getWidth(), motion2_ll.getHeight());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator animator = ViewAnimationUtils.createCircularReveal(motion2_ll, (int) endPoint.x,
-                    (int) endPoint.y,
+            Animator animator = ViewAnimationUtils.createCircularReveal(motion2_ll, (int) (endPoint.x + getResources().getDimension(R.dimen.motion_layout_margin)),
+                    (int) (endPoint.y + getResources().getDimension(R.dimen.motion_layout_margin)),
                     openStartRadius, openEndRadius);
             animator.addListener(new Animator.AnimatorListener() {
                 @Override
@@ -114,8 +121,8 @@ public class Motion2Fragment extends BaseFragment {
 
     private Animator hideAnim() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator animator = ViewAnimationUtils.createCircularReveal(motion2_ll, (int) endPoint.x,
-                    (int) endPoint.y,
+            Animator animator = ViewAnimationUtils.createCircularReveal(motion2_ll, (int) (endPoint.x + getResources().getDimension(R.dimen.motion_layout_margin)),
+                    (int) (endPoint.y + getResources().getDimension(R.dimen.motion_layout_margin)),
                     openEndRadius, openStartRadius);
             animator.addListener(new Animator.AnimatorListener() {
                 @Override
@@ -160,8 +167,8 @@ public class Motion2Fragment extends BaseFragment {
         ValueAnimator valueAnimator = AnimUtils.creatBezierAnimator(v, startPoint, endPoint, controlPoint);
         Animator animator = revelAnim();
 
-        valueAnimator.setDuration(durationTime);
-        animator.setDuration(durationTime);
+        valueAnimator.setDuration(durationTime / 2);
+        animator.setDuration(durationTime / 2);
         animator.setInterpolator(new AccelerateInterpolator());
         valueAnimator.setInterpolator(new AccelerateInterpolator());
         AnimatorSet animatorSet = new AnimatorSet();
@@ -176,8 +183,8 @@ public class Motion2Fragment extends BaseFragment {
         ValueAnimator valueAnimator = AnimUtils.creatBezierAnimator(motion2_fab, endPoint, startPoint, controlPoint);
         Animator animator = hideAnim();
         if (animator != null && valueAnimator != null) {
-            valueAnimator.setDuration(durationTime);
-            animator.setDuration(durationTime);
+            valueAnimator.setDuration(durationTime / 2);
+            animator.setDuration(durationTime / 2);
             animator.setInterpolator(new AccelerateInterpolator());
             valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
             AnimatorSet animatorSet = new AnimatorSet();
