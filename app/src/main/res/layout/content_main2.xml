@@ -5,52 +5,14 @@
     android:id="@+id/constraint_layout_1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/tianyi_blue"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.dell.mddemo.MainActivity">
 
-    <ScrollView
-        android:id="@+id/scroll_view1"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/home_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                android:elevation="3dp"
-                android:shadowColor="@color/primary_color_grey"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="5"
-                android:text="23333"
-                android:textSize="50sp" />
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="400dp">
-
-                <EditText
-                    android:id="@+id/editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:layout_marginEnd="50dp"
-                    android:hint="23333333"
-                    android:maxLength="10"
-                    android:maxLines="1" />
-            </android.support.design.widget.TextInputLayout>
-        </RelativeLayout>
-    </ScrollView>
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

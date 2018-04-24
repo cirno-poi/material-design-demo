@@ -20,6 +20,8 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 
+import com.example.dell.mddemo.utils.MyViewUtils;
+
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
@@ -27,7 +29,7 @@ import butterknife.Unbinder;
 
 /**
  * Description：write something
- *
+ * <p>
  * Created by Flower.G on 2018/3/19.
  */
 
@@ -41,11 +43,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         mUnbinder = ButterKnife.bind(this);
         setup(savedInstanceState);
-//        setStatusBarColor(Color.TRANSPARENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
-            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
-        }
+//        MyViewUtils.setStatusBarColor(this, Color.TRANSPARENT);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            WindowManager.LayoutParams localLayoutParams = getWindow().getAttributes();
+//            localLayoutParams.flags = (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | localLayoutParams.flags);
+//        }
     }
 
     private void setup(Bundle savedInstanceState) {

@@ -1,17 +1,18 @@
 package com.example.dell.mddemo;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
-import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewCompat;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,29 +21,25 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.dell.mddemo.base.BaseActivity;
 import com.example.dell.mddemo.base.BaseFragment;
 import com.example.dell.mddemo.changeTheme.ChangeThemeActivity;
-import com.example.dell.mddemo.changeTheme.ChangeThemeFragment;
 import com.example.dell.mddemo.home.HomeFragment;
 import com.example.dell.mddemo.motion.Motion2Fragment;
+import com.example.dell.mddemo.motion.MotionActivity;
 import com.example.dell.mddemo.motion.MotionFragment;
 import com.example.dell.mddemo.utils.MyViewUtils;
+import com.jaeger.library.StatusBarUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.List;
-
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Description：write something
@@ -63,6 +60,10 @@ public class MainActivity extends BaseActivity
     Toolbar toolbar;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.home_tabLayout)
+    TabLayout home_tabLayout;
+    @BindView(R.id.main_app_bar_layout)
+    AppBarLayout main_app_bar_layout;
 
     private long lastClickTime = 0;
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -76,17 +77,20 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void setupView() {
-        toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-        MyViewUtils.setToolbarHeight(this, toolbar);
-
+//        MyViewUtils.setToolbarHeight(this, toolbar);
+        MyViewUtils.setStatusBarAlpha(this);
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        home_tabLayout.addTab(home_tabLayout.newTab().setText("Tab 1"));
+        home_tabLayout.addTab(home_tabLayout.newTab().setText("Tab 2"));
+        home_tabLayout.addTab(home_tabLayout.newTab().setText("Tab 3"));
+
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer_layout.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -103,6 +107,7 @@ public class MainActivity extends BaseActivity
 //            if (fragmentList.get(0) instanceof HomeFragment) {
 //                Log.d("233333", "当前fragment为HomeFragment ");
 //            }
+
 
         EventBus.getDefault().register(this);
     }
@@ -170,16 +175,17 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_gallery) {
             mCurrentFragment = new MotionFragment();
             replaceFragment(mCurrentFragment);
+//            MotionActivity.actionSatrt(this);
             fab.setVisibility(View.GONE);
         } else if (id == R.id.nav_slideshow) {
             mCurrentFragment = new Motion2Fragment();
             replaceFragment(mCurrentFragment);
             fab.setVisibility(View.GONE);
         } else if (id == R.id.nav_manage) {
-//            ChangeThemeActivity.actionSatrt(this);
-//            return true;
-            replaceFragment(new ChangeThemeFragment());
-            fab.setVisibility(View.GONE);
+            ChangeThemeActivity.actionStart(this);
+            return true;
+//            replaceFragment(new ChangeThemeFragment());
+//            fab.setVisibility(View.GONE);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -195,7 +201,13 @@ public class MainActivity extends BaseActivity
 
     private void setThemeColor(@ColorInt int color) {
         fab.setBackgroundTintList(ColorStateList.valueOf(color));
+        main_app_bar_layout.setBackgroundColor(color);
+//        StatusBarUtil.setColorForDrawerLayout(this, drawer_layout, color);
+
+//        StatusBarUtil.setTranslucent(this);
+//        StatusBarUtil.setColor(this, color);
         //setStatusBarColor(color);
+//        MyViewUtils.setColorForSwipeBack(this,color);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -221,8 +233,11 @@ public class MainActivity extends BaseActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
-                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
+                startActivity(new Intent(this,MotionActivity.class),
+                        ActivityOptions.makeSceneTransitionAnimation(this,fab,"fab").toBundle());
 
                 break;
             default:

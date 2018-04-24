@@ -44,7 +44,7 @@ public class ChangeThemeFragment extends BaseFragment {
     TextInputEditText edt_duration_time;
 
     private AppBarLayout main_app_bar_layout;
-    private  FrameLayout toolbar_bg;
+//    private  FrameLayout toolbar_bg;
 
     private long mDurationTime = 0;
 
@@ -57,7 +57,7 @@ public class ChangeThemeFragment extends BaseFragment {
     protected void setupView() {
 
         main_app_bar_layout = (AppBarLayout)getActivity().findViewById(R.id.main_app_bar_layout);
-        toolbar_bg = (FrameLayout)getActivity().findViewById(R.id.main_toolbar_bg);
+//        toolbar_bg = (FrameLayout)getActivity().findViewById(R.id.main_toolbar_bg);
 
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +74,8 @@ public class ChangeThemeFragment extends BaseFragment {
                     return;
                 }
                 int color = Color.parseColor(ColorUtils.random());
-                revealAnimTest((int) v.getX() + v.getWidth() / 2,
-                        (int) v.getY() + v.getHeight() / 2, color, mDurationTime);
+//                revealAnimTest((int) v.getX() + v.getWidth() / 2,
+//                        (int) v.getY() + v.getHeight() / 2, color, mDurationTime);
                 btn_test.setBackgroundColor(color + 2000);
                 EventBus.getDefault().post(new ColorEvent(color));
             }
@@ -136,22 +136,22 @@ public class ChangeThemeFragment extends BaseFragment {
         return null;
     }
 
-    void revealAnimTest(int startX, int startY, int color, long durationTime) {
-        Animator animator = revealAnim(startX, startY, getStartRadius(), getEndRadius(),
-                background_ll, background_fl, color);
-        Animator animator1 = revealAnim(startX, startY + toolbar_bg.getHeight(), getStartRadius(),
-                getEndRadius(), toolbar_bg, main_app_bar_layout, color);
-
-        if (animator != null && animator1 != null) {
-            if (durationTime <= 0) {
-                durationTime = DURATION_TIME;
-            }
-            animator.setDuration(durationTime);
-            animator1.setDuration(durationTime);
-            AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(animator, animator1);
-            animatorSet.start();
-        }
-    }
+//    void revealAnimTest(int startX, int startY, int color, long durationTime) {
+//        Animator animator = revealAnim(startX, startY, getStartRadius(), getEndRadius(),
+//                background_ll, background_fl, color);
+//        Animator animator1 = revealAnim(startX, startY + toolbar_bg.getHeight(), getStartRadius(),
+//                getEndRadius(), toolbar_bg, main_app_bar_layout, color);
+//
+//        if (animator != null && animator1 != null) {
+//            if (durationTime <= 0) {
+//                durationTime = DURATION_TIME;
+//            }
+//            animator.setDuration(durationTime);
+//            animator1.setDuration(durationTime);
+//            AnimatorSet animatorSet = new AnimatorSet();
+//            animatorSet.playTogether(animator, animator1);
+//            animatorSet.start();
+//        }
+//    }
 
 }

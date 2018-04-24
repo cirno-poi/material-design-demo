@@ -24,7 +24,7 @@ import butterknife.BindView;
 
 /**
  * Description：write something
- *
+ * <p>
  * Created by Flower.G on 2018/3/19.
  */
 
@@ -39,7 +39,7 @@ public class ChangeThemeActivity extends BaseActivity {
 
     private long mDurationTime = 0;
 
-    public static void actionSatrt(Activity activity) {
+    public static void actionStart(Activity activity) {
         Intent intent = new Intent(activity, ChangeThemeActivity.class);
         activity.startActivity(intent);
     }
@@ -55,6 +55,8 @@ public class ChangeThemeActivity extends BaseActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        MyViewUtils.setStatusBarAlpha(this);
         theme_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
