@@ -69,19 +69,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         h.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if ("flandre".equals(h.cardDesc.getText().toString())) {
-//                    MotionActivity.actionStart((Activity) context, h.cardView, "pic1",
-//                            "flandre");
-//
-////                    context.startActivity(new Intent(context, MotionActivity.class),
-////                            ActivityOptions.makeSceneTransitionAnimation((Activity) context,
-////                                    h.cardImage, "pic1").toBundle());
-//                } else if ("lian".equals(h.cardDesc.getText().toString())) {
-//                    MotionActivity.actionStart((Activity) context, h.cardView, "pic1",
-//                            "lian");
-//
-////
-//                }
                 MotionActivity.actionStart((Activity) context, h.cardView, "pic1",
                         h.imageId);
 
