@@ -1,5 +1,6 @@
 package com.example.dell.mddemo.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.dell.mddemo.R;
+import com.example.dell.mddemo.motion.MotionActivity;
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         CardView cardView;
         ImageView cardImage;
         TextView cardDesc;
+        int imageId;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -56,9 +59,34 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+        final ViewHolder h = holder;
         CardEntity card = cardEntityList.get(position);
-        holder.cardDesc.setText(card.getCardName());
-        Glide.with(context).load(card.getCardImageId()).into(holder.cardImage);
+        h.cardDesc.setText(card.getCardName());
+//        Glide.with(context).load(card.getCardImageId()).into(holder.cardImage);
+        h.cardImage.setImageResource(card.getCardImageId());
+        h.imageId = card.getCardImageId();
+        h.itemView.setTransitionName("pic1");
+        h.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if ("flandre".equals(h.cardDesc.getText().toString())) {
+//                    MotionActivity.actionStart((Activity) context, h.cardView, "pic1",
+//                            "flandre");
+//
+////                    context.startActivity(new Intent(context, MotionActivity.class),
+////                            ActivityOptions.makeSceneTransitionAnimation((Activity) context,
+////                                    h.cardImage, "pic1").toBundle());
+//                } else if ("lian".equals(h.cardDesc.getText().toString())) {
+//                    MotionActivity.actionStart((Activity) context, h.cardView, "pic1",
+//                            "lian");
+//
+////
+//                }
+                MotionActivity.actionStart((Activity) context, h.cardView, "pic1",
+                        h.imageId);
+
+            }
+        });
 
     }
 

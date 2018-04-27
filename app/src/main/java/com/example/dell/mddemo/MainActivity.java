@@ -175,7 +175,7 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_gallery) {
             mCurrentFragment = new MotionFragment();
             replaceFragment(mCurrentFragment);
-//            MotionActivity.actionSatrt(this);
+//            MotionActivity.actionStart(this);
             fab.setVisibility(View.GONE);
         } else if (id == R.id.nav_slideshow) {
             mCurrentFragment = new Motion2Fragment();
@@ -233,11 +233,11 @@ public class MainActivity extends BaseActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
-//                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
+                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
 
-                startActivity(new Intent(this,MotionActivity.class),
-                        ActivityOptions.makeSceneTransitionAnimation(this,fab,"fab").toBundle());
+//                startActivity(new Intent(this,MotionActivity.class),
+//                        ActivityOptions.makeSceneTransitionAnimation(this,fab,"fab").toBundle());
 
                 break;
             default:

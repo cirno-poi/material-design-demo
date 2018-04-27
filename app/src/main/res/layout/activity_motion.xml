@@ -25,16 +25,19 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
-        android:transitionName="fab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
+        <ImageView
+            android:id="@+id/motion_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/tianyi_blue" />
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onClick"
+            android:scaleType="centerCrop"
+            android:transitionName="pic1" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
