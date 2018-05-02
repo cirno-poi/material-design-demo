@@ -3,6 +3,7 @@ package com.example.dell.mddemo.motion;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.graphics.NinePatch;
 import android.graphics.PointF;
 import android.os.Build;
 import android.os.Bundle;
@@ -96,12 +97,15 @@ public class Motion2Fragment extends BaseFragment {
                 @Override
                 public void onAnimationStart(Animator animation) {
                     motion2_ll.setVisibility(View.VISIBLE);
-                    motion2_fab.setVisibility(View.INVISIBLE);
+                    motion2_fab.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
 //                    motion2_fab.setVisibility(View.VISIBLE);
+                    if (motion2_ll != null) {
+                        motion2_ll.clearAnimation();
+                    }
                 }
 
                 @Override
@@ -132,8 +136,11 @@ public class Motion2Fragment extends BaseFragment {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    motion2_ll.setVisibility(View.INVISIBLE);
-                    motion2_fab.setVisibility(View.VISIBLE);
+                    if (motion2_ll != null && motion2_fab != null) {
+                        motion2_ll.setVisibility(View.GONE);
+                        motion2_fab.setVisibility(View.VISIBLE);
+                        motion2_ll.clearAnimation();
+                    }
                 }
 
                 @Override

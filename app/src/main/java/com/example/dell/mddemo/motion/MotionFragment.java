@@ -72,7 +72,7 @@ public class MotionFragment extends BaseFragment {
 //        fabY = motion_fab.getTop() + motion_fab.getHeight() / 2;
 
         fabX = (int) (motion_fab.getLeft() + motion_fab.getWidth() / 2 - getResources().getDimension(R.dimen.motion_layout_margin));
-        fabY = (int) (motion_fab.getTop() + motion_fab.getHeight() / 2 -  getResources().getDimension(R.dimen.motion_layout_margin));
+        fabY = (int) (motion_fab.getTop() + motion_fab.getHeight() / 2 - getResources().getDimension(R.dimen.motion_layout_margin));
         openStartRadius = motion_fab.getWidth() / 2;
         openEndRadius = (float) Math.hypot(motion_ll.getWidth(), motion_ll.getHeight());
 
@@ -84,12 +84,15 @@ public class MotionFragment extends BaseFragment {
                 @Override
                 public void onAnimationStart(Animator animation) {
                     motion_ll.setVisibility(View.VISIBLE);
-                    motion_fab.setVisibility(View.INVISIBLE);
+                    motion_fab.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
 //                    motion_fab.setVisibility(View.VISIBLE);
+                    if (motion_ll != null) {
+                        motion_ll.clearAnimation();
+                    }
                 }
 
                 @Override
@@ -121,8 +124,11 @@ public class MotionFragment extends BaseFragment {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    motion_ll.setVisibility(View.INVISIBLE);
-                    motion_fab.setVisibility(View.VISIBLE);
+                    if (motion_ll != null && motion_fab != null) {
+                        motion_ll.setVisibility(View.GONE);
+                        motion_fab.setVisibility(View.VISIBLE);
+                        motion_ll.clearAnimation();
+                    }
 //                    motion_fab.setVisibility(View.VISIBLE);
                 }
 

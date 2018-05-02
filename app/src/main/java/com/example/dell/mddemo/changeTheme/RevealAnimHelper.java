@@ -18,7 +18,7 @@ import com.example.dell.mddemo.R;
 
 /**
  * Description：write something
- *
+ * <p>
  * Created by Flower.G on 2018/3/19.
  */
 
@@ -85,7 +85,12 @@ class RevealAnimHelper {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    bgView.setBackgroundColor(color);
+                    if (fView != null) {
+                        fView.clearAnimation();
+                    }
+                    if (bgView != null) {
+                        bgView.setBackgroundColor(color);
+                    }
                 }
 
                 @Override

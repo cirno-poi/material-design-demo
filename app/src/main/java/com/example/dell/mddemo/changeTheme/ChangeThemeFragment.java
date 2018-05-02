@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputEditText;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
@@ -56,15 +57,14 @@ public class ChangeThemeFragment extends BaseFragment {
     @Override
     protected void setupView() {
 
-        main_app_bar_layout = (AppBarLayout)getActivity().findViewById(R.id.main_app_bar_layout);
+        main_app_bar_layout = (AppBarLayout) getActivity().findViewById(R.id.main_app_bar_layout);
 //        toolbar_bg = (FrameLayout)getActivity().findViewById(R.id.main_toolbar_bg);
 
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (edt_duration_time.getText().toString().equals("") ||
-                        edt_duration_time.getText().toString().length() <= 0
+                if (TextUtils.isEmpty(edt_duration_time.getText().toString())
                         || edt_duration_time.getText().toString().equals("0")) {
                     mDurationTime = DURATION_TIME;
                 } else {
@@ -116,7 +116,12 @@ public class ChangeThemeFragment extends BaseFragment {
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    bView.setBackgroundColor(color);
+                    if (fView != null) {
+                        fView.clearAnimation();
+                    }
+                    if (bView != null) {
+                        bView.setBackgroundColor(color);
+                    }
                 }
 
                 @Override
