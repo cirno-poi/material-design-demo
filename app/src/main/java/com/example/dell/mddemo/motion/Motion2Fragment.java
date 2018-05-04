@@ -1,18 +1,22 @@
 package com.example.dell.mddemo.motion;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
-import android.graphics.NinePatch;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import com.example.dell.mddemo.R;
@@ -30,16 +34,17 @@ import butterknife.BindView;
 
 public class Motion2Fragment extends BaseFragment {
 
-    private long durationTime = 300;
+    private static final String TAG = "Motion2Fragment";
 
-    private int fabX = 0;
-    private int fabY = 0;
+    private long durationTime = 200;
+
     private float openStartRadius = 0f;
     private float openEndRadius = 0f;
 
     private PointF startPoint;
     private PointF endPoint;
     private PointF controlPoint;
+    private PointF centerPoint;
 
     @BindView(R.id.motion2_ll)
     LinearLayout motion2_ll;
@@ -62,7 +67,7 @@ public class Motion2Fragment extends BaseFragment {
                     return;
                 }
 //                revelAnim();
-                openAnim(v);
+                openAnim();
             }
         });
 
@@ -83,103 +88,77 @@ public class Motion2Fragment extends BaseFragment {
     }
 
     public Animator revelAnim() {
-
-        fabX = (int) (motion2_fab.getLeft() + motion2_fab.getWidth() / 2 - getResources().getDimension(R.dimen.motion_layout_margin));
-        fabY = (int) (motion2_fab.getTop() + motion2_fab.getHeight() / 2 - getResources().getDimension(R.dimen.motion_layout_margin));
-        openStartRadius = motion2_fab.getWidth() / 2;
-        openEndRadius = (float) Math.hypot(motion2_ll.getWidth(), motion2_ll.getHeight());
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator animator = ViewAnimationUtils.createCircularReveal(motion2_ll, (int) (endPoint.x + getResources().getDimension(R.dimen.motion_layout_margin)),
-                    (int) (endPoint.y + getResources().getDimension(R.dimen.motion_layout_margin)),
+            return ViewAnimationUtils.createCircularReveal(motion2_ll, (int) centerPoint.x, (int) centerPoint.y,
                     openStartRadius, openEndRadius);
-            animator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    motion2_ll.setVisibility(View.VISIBLE);
-                    motion2_fab.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-//                    motion2_fab.setVisibility(View.VISIBLE);
-                    if (motion2_ll != null) {
-                        motion2_ll.clearAnimation();
-                    }
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-            return animator;
         }
         return null;
     }
 
     private Animator hideAnim() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator animator = ViewAnimationUtils.createCircularReveal(motion2_ll, (int) (endPoint.x + getResources().getDimension(R.dimen.motion_layout_margin)),
-                    (int) (endPoint.y + getResources().getDimension(R.dimen.motion_layout_margin)),
-                    openEndRadius, openStartRadius);
-            animator.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    if (motion2_ll != null && motion2_fab != null) {
-                        motion2_ll.setVisibility(View.GONE);
-                        motion2_fab.setVisibility(View.VISIBLE);
-                        motion2_ll.clearAnimation();
-                    }
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-            animator.setInterpolator(new AccelerateDecelerateInterpolator());
-            return animator;
+            return ViewAnimationUtils.createCircularReveal(motion2_ll, (int) centerPoint.x,
+                    (int) centerPoint.y, openEndRadius, openStartRadius);
         }
         return null;
     }
 
     /**
      * 开始动画
-     *
-     * @param v 目标view
      */
-    private void openAnim(View v) {
-        final float fstartX = v.getLeft();
-        final float fstartY = v.getTop();
-        startPoint = new PointF(fstartX, fstartY);
-        controlPoint = new PointF(motion2_ll.getLeft() + motion2_ll.getWidth() / 2, fstartY);
-        endPoint = new PointF(motion2_ll.getLeft() + motion2_ll.getWidth() / 2 - motion2_fab.getWidth() / 2,
-                motion2_ll.getTop() + motion2_ll.getHeight() / 2 - motion2_fab.getHeight() / 2);
-        ValueAnimator valueAnimator = AnimUtils.creatBezierAnimator(v, startPoint, endPoint, controlPoint);
+    private void openAnim() {
+        openStartRadius = motion2_fab.getWidth() / 2;
+        openEndRadius = (float) Math.hypot(motion2_ll.getWidth() / 2, motion2_ll.getHeight() / 2) + openStartRadius;
+
+        // Coordinates of circle initial point
+        final ViewGroup parent = (ViewGroup) motion2_ll.getParent();
+        final Rect bounds = new Rect();
+        final Rect maskBounds = new Rect();
+
+        motion2_fab.getDrawingRect(bounds);
+        motion2_ll.getDrawingRect(maskBounds);
+        parent.offsetDescendantRectToMyCoords(motion2_fab, bounds);
+        parent.offsetDescendantRectToMyCoords(motion2_ll, maskBounds);
+
+        centerPoint = new PointF(maskBounds.centerX(), maskBounds.centerY());
+
+        final float c0X = bounds.centerX() - maskBounds.centerX();
+        final float c0Y = bounds.centerY() - maskBounds.centerY();
+
+        startPoint = new PointF(c0X, c0Y);
+        endPoint = new PointF(motion2_ll.getLeft(), motion2_ll.getTop());
+        controlPoint = new PointF(endPoint.x, startPoint.y);
+
+        // Put Mask view at circle initial points
+        motion2_ll.setX(bounds.left - maskBounds.centerX());
+        motion2_ll.setY(bounds.top - maskBounds.centerY());
+
+        motion2_ll.setVisibility(View.VISIBLE);
+        motion2_fab.setVisibility(View.GONE);
+
+        final float elevation = motion2_ll.getElevation();
+        motion2_ll.setElevation(0);
+
+        ValueAnimator valueAnimator = AnimUtils.createBezierAnimator(motion2_ll, startPoint, endPoint, controlPoint);
         Animator animator = revelAnim();
 
-        valueAnimator.setDuration(durationTime / 2);
-        animator.setDuration(durationTime / 2);
-        animator.setInterpolator(new AccelerateInterpolator());
-        valueAnimator.setInterpolator(new AccelerateInterpolator());
+        valueAnimator.setDuration((long) (durationTime * 0.5));
+        animator.setDuration(durationTime);
+        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playSequentially(valueAnimator, animator);
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (motion2_ll != null) {
+                    motion2_ll.clearAnimation();
+                    motion2_ll.setElevation(elevation);
+                }
+            }
+
+        });
+        animatorSet.playTogether(valueAnimator, animator);
         animatorSet.start();
     }
 
@@ -187,15 +166,31 @@ public class Motion2Fragment extends BaseFragment {
      * 关闭动画
      */
     private void closeAnim() {
-        ValueAnimator valueAnimator = AnimUtils.creatBezierAnimator(motion2_fab, endPoint, startPoint, controlPoint);
+        ValueAnimator pathAnimator = AnimUtils.createBezierAnimator(motion2_ll, endPoint, startPoint, controlPoint);
         Animator animator = hideAnim();
-        if (animator != null && valueAnimator != null) {
-            valueAnimator.setDuration(durationTime / 2);
-            animator.setDuration(durationTime / 2);
-            animator.setInterpolator(new AccelerateInterpolator());
-            valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        if (animator != null && pathAnimator != null) {
+//            pathAnimator.setDuration(durationTime);
+//            animator.setDuration((long) (durationTime));
+            animator.setInterpolator(new DecelerateInterpolator());
+            pathAnimator.setInterpolator(new AccelerateInterpolator());
             AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playSequentially(animator, valueAnimator);
+            animatorSet.setDuration(durationTime);
+
+            final float elevation = motion2_ll.getElevation();
+            motion2_ll.setElevation(0);
+
+            animatorSet.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    if (motion2_ll != null && motion2_fab != null) {
+                        motion2_ll.setVisibility(View.GONE);
+                        motion2_fab.setVisibility(View.VISIBLE);
+                        motion2_ll.setElevation(elevation);
+                        motion2_ll.clearAnimation();
+                    }
+                }
+            });
+            animatorSet.playTogether(animator, pathAnimator);
             animatorSet.start();
         }
     }

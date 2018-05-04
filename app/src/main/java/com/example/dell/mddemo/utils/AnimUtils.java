@@ -15,12 +15,12 @@ import com.example.dell.mddemo.motion.BezierEvaluator;
 
 public class AnimUtils {
 
-    public static ValueAnimator creatBezierAnimator(View v, PointF startPoint, PointF endPoint, PointF controlPoint) {
+    public static ValueAnimator createBezierAnimator(View v, PointF startPoint, PointF endPoint, PointF controlPoint) {
 
         final View view = v;
         ValueAnimator valueAnimator = ValueAnimator.ofObject(new BezierEvaluator(controlPoint), startPoint, endPoint);
 //        valueAnimator.setInterpolator(new LinearInterpolator());
-        valueAnimator.start();
+//        valueAnimator.start();
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
